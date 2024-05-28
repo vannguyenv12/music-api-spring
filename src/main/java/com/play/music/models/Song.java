@@ -27,6 +27,17 @@ public class Song {
     @ManyToOne
     private Genre genre;
 
-    @ManyToMany(mappedBy = "songs")
+    @ManyToMany(mappedBy = "songs", cascade = CascadeType.ALL)
     Set<Playlist> playlists = new HashSet<>();
+
+    public void addPlayList(Playlist playlist) {
+        this.playlists.add(playlist);
+        playlist.getSongs().add(this);
+    }
+
+    public void removePlayList(Playlist playlist) {
+        this.playlists.remove(playlist);
+        playlist.getSongs().remove(this);
+    }
+
 }
