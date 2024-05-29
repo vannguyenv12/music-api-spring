@@ -27,6 +27,9 @@ public class Song {
     @ManyToOne
     private Genre genre;
 
+    @ManyToOne
+    private Artist artist;
+
     @ManyToMany(mappedBy = "songs", cascade = CascadeType.ALL)
     Set<Playlist> playlists = new HashSet<>();
 
