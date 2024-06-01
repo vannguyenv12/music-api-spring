@@ -21,7 +21,6 @@ public class Song {
     private int id;
     private String title;
     private String songUrl;
-    private String imgUrl;
 
     @ManyToOne
     private Genre genre;

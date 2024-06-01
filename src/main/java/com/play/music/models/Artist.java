@@ -21,6 +21,7 @@ public class Artist {
     private int id;
 
     private String artistName;
+    private String avatarUrl;
 
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
     private Set<Song> songs = new HashSet<>();
