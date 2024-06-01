@@ -20,7 +20,6 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
-    private String artistName;
     private String songUrl;
     private String imgUrl;
 

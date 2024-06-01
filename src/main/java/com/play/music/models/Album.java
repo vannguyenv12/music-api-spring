@@ -17,7 +17,10 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String backgroundUrl;
 
     @ManyToOne
     private Artist artist;
+
+
 }

@@ -23,6 +23,7 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String avatarUrl;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Playlist> playlists = new HashSet<>();
