@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "albums")
 @NoArgsConstructor
@@ -21,6 +24,9 @@ public class Album {
 
     @ManyToOne
     private Artist artist;
+
+    @OneToMany(mappedBy = "album")
+    private Set<Song> songs = new HashSet<>();
 
 
 }
