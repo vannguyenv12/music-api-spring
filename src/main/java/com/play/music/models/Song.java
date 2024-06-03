@@ -20,6 +20,7 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
+    @Column(length = 512)
     private String songUrl;
 
     @ManyToOne
@@ -27,6 +28,9 @@ public class Song {
 
     @ManyToOne
     private Artist artist;
+
+    @ManyToOne
+    private Album album;
 
     @ManyToMany(mappedBy = "songs", cascade = CascadeType.ALL)
     Set<Playlist> playlists = new HashSet<>();
