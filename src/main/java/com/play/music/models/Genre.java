@@ -16,11 +16,9 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 public class Genre {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    private String genreName;
+    @Id
+    private String name;
 
     @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
     private Set<Song> songs = new HashSet<>();
