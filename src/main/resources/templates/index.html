@@ -6,7 +6,7 @@
 <head>
 	 <title>Music Player</title>
 	 <!--Linking the CSS stylesheet using extrenal CSS-->
-	 <link rel="stylesheet" type="text/css" href="MusicPlayerStyle.css">
+	<link rel="stylesheet" type="text/css" href="/css/MusicPlayerStyle.css">
 	 <!--Font Awesome script for using icons from font awesome-->
 	 <script src="https://kit.fontawesome.com/6f0f83005a.js" crossorigin="anonymous"></script>
 	 <!--Adds responsiveness to the website-->
@@ -50,9 +50,10 @@
 		 <!--Notification Bell div end-->
 
          <!--User Image div-->
-		 <div id="user">
-			 <img src="Images/user-image.jpg">
-		 </div>
+			 <div id="user">
+				 <img src="/Images/user-image.jpg" onclick="window.location.href='/login';">
+				 <a href="/logout" style="color: white" th:text="'Xin chào, ' + ${username}">Xin chào, User</a>
+			 </div>
 		</div>
 		 <!--User Image div end-->
 	</nav>
@@ -62,9 +63,9 @@
 	<main>
 		<!--Home Screen Carousel which is slideshown with class slideshow-->
 		<div id="new-releases">
-			 <img src="Images/new-music-2.jpg">
-			 <img src="Images/new-music-1.jpg">
-			 <img src="Images/new-music-3.jpg">
+			 <img src="/Images/new-music-2.jpg">
+			 <img src="/Images/new-music-1.jpg">
+			 <img src="/Images/new-music-3.jpg">
 		</div>
 		<!--End of home screen carousel-->
         
