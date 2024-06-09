@@ -1195,7 +1195,18 @@ main, aside etc. are same as before*/
 
 #similar-artist{
 	height: 20vh;
-	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-top: 1.5rem;
+	color: var(--font_color_1);
+	font-size: 1.3rem;
+	margin-bottom: -1.5rem;
+}
+
+#playlist {
+	height: 20vh;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
