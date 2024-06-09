@@ -45,17 +45,6 @@ public class SongController {
     public ModelAndView loginAction(@RequestParam String email, @RequestParam String password, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
 
-        // Cố gắng lấy tên người dùng từ session trước
-        String usernameFromSession = (String) session.getAttribute("username");
-
-        // Nếu tên người dùng đã có trong session, sử dụng luôn tên đó
-        if (usernameFromSession != null) {
-            modelAndView.addObject("username", usernameFromSession);
-            modelAndView.setViewName("redirect:/");
-            return modelAndView;
-        }
-
-        // Nếu người dùng chưa đăng nhập, thực hiện logic đăng nhập
         User user = entityManager.createQuery(
                         "SELECT u FROM User u WHERE u.email = :email", User.class)
                 .setParameter("email", email)
@@ -68,11 +57,18 @@ public class SongController {
             if (hashedInputPassword.equals(user.getPassword())) {
                 String username = user.getUsername();
                 session.setAttribute("username", username);
-                modelAndView.setViewName("redirect:/");
+
+                session.setAttribute("role", user.getRole());
+
+
+                if("admin".equals(user.getRole())) {
+                    modelAndView.setViewName("redirect:/admin"); // Redirect to admin page if role is "admin"
+                } else {
+                    modelAndView.setViewName("redirect:/"); // Redirect to home page for other roles
+                }
                 return modelAndView;
             }
         }
-
         modelAndView.setViewName("/login");
         return modelAndView;
     }
