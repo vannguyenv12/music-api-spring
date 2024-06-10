@@ -61,34 +61,41 @@
     <!--Main body of the Music Player Home Page-->
 	<main>
 		<!--Home Screen Carousel which is slideshown with class slideshow-->
+
 		<div id="new-releases">
-			 <img src="Images/new-music-2.jpg">
-			 <img src="Images/new-music-1.jpg">
-			 <img src="Images/new-music-3.jpg">
+			<!-- Dùng th:each để lặp qua danh sách Album -->
+			<img th:each="Album : ${ListAlbum}"
+				 th:if="${Album != null and Album.getBackgroundUrl() != null}"
+				 th:src="@{${Album.getBackgroundUrl()}}"
+			/>
 		</div>
-		<!--End of home screen carousel-->
-        
-        <!--Begining of latest release section-->
+
+
 		<div id="latest-release">
 			<!--Heading-->
 			<h1>Latest Release</h1>
             <!--Latest Release Item div which contains the latest songs displayed-->
-			<div id="latest-release-items">
+			<div  id="latest-release-items">
 				<!--Item 1-->
-                <div id="latest-release-item">
+                <div th:each="Song : ${ListNewSong}" id="latest-release-item">
                 	<!--Song Image-->
-                	<div id="latest-release-img">
+					<div style="width: 100px;height: 100px" th:if="${Song != null and Song.getArtist() != null}"
+						 th:style="'background-image: url(' + ${Song.getArtist().getAvatarUrl()} + ')'"
+						 id="latest-release-img">
                 		<!--Play Button div which is hidden and appears on hover-->
-                		<div id="latest-release-img-button" class="hide">
-                		     <a href="#music-bar" class="font-color"><i class="fas fa-play"></i></a>
-                	    </div>
-                	    <!--End of Play Button Div-->
+						<div id="latest-release-img-button" class="hide">
+							<a class="font-color play-song" th:data-song-id="${Song.getId()}" href="javascript:void(0);">
+								<i class="fas fa-play"></i>
+							</a>
+						</div>
+
+						<!--End of Play Button Div-->
                 	 </div>
                 	 <!--End of Song Image-->
                      <!--Div containing song details-->
                 	 <div id="latest-item-title" class="hide">
-                	     <b>willow</b>
-                	     <p style="color:lightgrey">December, 2020 &emsp;&emsp; 3:34</p>
+                	     <b th:text="${Song.getTitle()}"></b>
+                	     <p th:text="${Song.getArtist().getArtistName()}"></p>
                      </div>
                      <!--End of div containing song details-->
                      <!--Dropdown menu icon-->
@@ -98,7 +105,7 @@
                      		<div id="dropdown-list">
                      			<i class="fas fa-play"></i>
                      			&nbsp;
-                     		    <a href="#music-bar">Play Now</a>
+                     		    <a class="font-color play-song" th:data-song-id="${Song.getId()}" href="javascript:void(0);">Play Now</a>
                      	    </div>
                      		<hr/>
                      		<div id="dropdown-list">
@@ -124,156 +131,6 @@
                      <!--End of dropdown menu-->
                 </div>
                 <!--End of Item 1-->
-                <!--Item 2-->
-                <div id="latest-release-item">
-                	<!--Song Image-->
-                	<div id="latest-release-img">
-                		<!--Play Button div which is hidden and appears on hover-->
-                		<div id="latest-release-img-button" class="hide">
-                		     <a href="#music-bar" class="font-color"><i class="fas fa-play"></i></a>
-                	    </div>
-                	 <!--End of Play Button Div-->
-                     </div>
-                     <!--End of Song Image-->
-                     <!--Div containing song details-->
-                	 <div id="latest-item-title">
-                	     <b>evermore (feat. Bon Iver)</b>
-                	     <p style="color:lightgrey">December, 2020 &emsp;&emsp; 5:04</p>
-                     </div>
-                     <!--End of div containing song details-->
-                     <!--Dropdown menu icon-->
-                	    <div id="dropdown">
-                        <i class="fas fa-chevron-circle-down">
-                     	<div id="dropdown-menu" class="hide">
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-play"></i>
-                     			&nbsp;
-                     		    <a href="#music-bar">Play Now</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-plus"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Add to Queue</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-plus"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Add to Favourites</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-exclamation-circle"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Get Info</a>
-                     	    </div>
-                     	</div>
-                        </i>
-                     </div>
-                     <!--End of dropdown menu-->
-                </div>
-                <!--End of Item 2-->
-                <!--Item 3-->
-                <div id="latest-release-item">
-                	 <!--Song Image-->
-                     <div id="latest-release-img">
-                		<!--Play Button div which is hidden and appears on hover-->
-                		<div id="latest-release-img-button" class="hide">
-                		     <a href="#music-bar" class="font-color"><i class="fas fa-play"></i></a>
-                	    </div>
-                	 <!--End of Play Button Div-->
-                     </div>
-                     <!--End of Song Image-->
-                     <!--Div containing song details-->
-                	 <div id="latest-item-title">
-                	     <b>ivy</b>
-                	     <p style="color:lightgrey">December, 2020 &emsp;&emsp; 4:20</p>
-                     </div>
-                     <!--End of div containing song details-->
-                     <!--Dropdown menu icon-->
-                	    <div id="dropdown">
-                        <i class="fas fa-chevron-circle-down">
-                     	<div id="dropdown-menu" class="hide">
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-play"></i>
-                     			&nbsp;
-                     		    <a href="#music-bar">Play Now</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-plus"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Add to Queue</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-plus"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Add to Favourites</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-exclamation-circle"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Get Info</a>
-                     	    </div>
-                     	</div>
-                        </i>
-                     </div>
-                      <!--End of dropdown menu-->
-                </div>
-                <!--End of Item 3-->
-                <!--Item 4-->
-                 <div id="latest-release-item">
-                 	 <!--Song Image-->
-                	 <div id="latest-release-img">
-                	 	 <!--Play Button div which is hidden and appears on hover-->
-                		 <div id="latest-release-img-button" class="hide">
-                		         <a href="#music-bar" class="font-color"><i class="fas fa-play"></i></a>
-                	     </div>
-                	     <!--End of Play Button Div-->
-                     </div>
-                     <!--End of Song Image-->
-                     <!--Div containing song details-->
-                	 <div id="latest-item-title">
-                	     <b>happiness</b>
-                	     <p style="color:lightgrey">December, 2020 &emsp;&emsp; 5:15</p>
-                     </div>
-                     <!--End of div containing song details-->
-                     <!--Dropdown menu icon-->
-                	                     <div id="dropdown">
-                        <i class="fas fa-chevron-circle-down">
-                     	<div id="dropdown-menu" class="hide">
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-play"></i>
-                     			&nbsp;
-                     		    <a href="#music-bar">Play Now</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-plus"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Add to Queue</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-plus"></i>
-                     			&nbsp;
-                     		    <a hrf="#latest-release">Add to Favourites</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-exclamation-circle"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Get Info</a>
-                     	    </div>
-                     	</div>
-                        </i>
-                     </div>
-                      <!--End of dropdown menu-->
-                 </div>
-                <!--End of Item 4-->
 			</div>
 			<!--End of latest release item div-->
 		</div>
@@ -284,60 +141,17 @@
 			 <!--Popular Artist Section Title-->
 			 <h1>Popular Artists</h1>
 			 <!--Begining of the popular artist list section-->
-			 <div id="popular-artist-list">
+			 <div  id="popular-artist-list">
 			 	 <!--Artist 1-->
-			     <div id="popular-artists-image">
+			     <div th:each="Artist :${ListArtist}"  th:style="'background-image: url(' + ${Artist.getAvatarUrl()} + ')'" id="popular-artists-image">
 				     <div id="popular-artists-text" class="hide">
-				     	<a href="MusicPlayerSinglePlaylistScreen.html">
-			               Prateek Kuhad
+				     	<a th:text="${Artist.getArtistName()}" >
+
 			            </a>
 			         </div>
 			     </div>
 			     <!--End of Artist 1-->
-                 <!--Artist 2-->
-			     <div id="popular-artists-image-2">
-				     <div id="popular-artists-text" class="hide">
-				     	<a href="MusicPlayerSinglePlaylistScreen.html">
-			                Tove Styrke
-			            </a>
-			         </div>
-			     </div>
-			     <!--End of Artist 2-->
-			     <!--Artist 3-->
-			     <div id="popular-artists-image-3">
-				      <div id="popular-artists-text" class="hide">
-				     	<a href="MusicPlayerSinglePlaylistScreen.html">
-			                Ritviz
-			            </a>
-			         </div>
-			     </div>
-			     <!--End of Artist 3-->
-			     <!--Artist 4-->
-			     <div id="popular-artists-image-4">
-				    <div id="popular-artists-text" class="hide">
-				     	<a href="MusicPlayerSinglePlaylistScreen.html">
-			               Martin Garrix
-			            </a>
-			         </div>
-			     </div>
-			     <!--End of Artist 4-->
-			     <!--Artist 5-->
-			     <div id="popular-artists-image-5">
-				    <div id="popular-artists-text" class="hide">
-				     	<a href="MusicPlayerSinglePlaylistScreen.html">
-			                Taylor Swift
-			            </a>
-			         </div>
-			     </div>
-			     <!--End of Artist 5-->
-			     <!--Begining of Artist 6-->
-			     <div id="popular-artists-image-6">
-				   <div id="popular-artists-text" class="hide">
-				     	<a href="MusicPlayerSinglePlaylistScreen.html">
-			                Green Day
-			            </a>
-			         </div>
-			     </div>
+
 			     <!--End of Artist 6-->
 		    </div>
 		    <!--End of popular artists list div-->
@@ -345,269 +159,144 @@
         <!--End of popluar artist section-->
 
        <!--Begining of playlist section-->
-        <div id="playlist">
-            <!--Playlist item 1-->
-        	<div id="playlist-item-1">
-        		<div id="popular-artists-text">
-			         Love
-			    </div>
-        	</div>
-        	<!--End of playlist item 1-->
-        	<!--Playlist item 2-->
-        	<div id="playlist-item-2">
-        		<div id="popular-artists-text">
-			         Retro
-			    </div>
-        	</div>
-        	<!--End of playlist item 2-->
-        	<!--Playlist item 3-->
-        	<div id="playlist-item-3">
-        		<div id="popular-artists-text">
-			         Chill
-			    </div>
-        	</div>
-        	<!--End of playlist item 3-->
-        	<!--Playlist item 4-->
-        	<div id="playlist-item-4">
-        		<div id="popular-artists-text">
-			         Pop
-			    </div>
-        	</div>
-        	<!--End of playlist item 4-->
-        	<!--Playlist item 5-->
-        	<div id="playlist-item-5">
-        		<div id="popular-artists-text">
-			         Workout
-			    </div>
-        	</div>
-        	<!--End of playlist item 5-->
-        	<!--Playlist item 6-->
-        	<div id="playlist-item-6">
-        		<div id="popular-artists-text">
-			         Rock
-			    </div>
-        	</div>
-        	<!--End of playlist item 6-->
-        </div>
+
         <!--End of playlist section-->
 
         <!--Begining of genre section-->
 	    <div id="genre">
-	    	<!--Genre Item 1-->
-	    	<div id="genre-item">
-	    		 <div id="genre-item-background-1">Party</div>
+
+	    	<div th:each="Genre : ${ListGenre}"id="genre-item">
+	    		 <div  th:text="${Genre.getName()}" id="genre-item-background-1"></div>
 	    	</div>
-	    	<!--End of genre item 1-->
-	    	<!--genre item 2-->
-	    	<div id="genre-item">
-	    		 <div id="genre-item-background-2">Electronic</div>
-	    	</div>
-	    	<!--End of genre item 2-->
-	    	<!--Genre Item 3-->
-	    	<div id="genre-item">
-	    		 <div id="genre-item-background-3">Road Trip</div>	    	
-	    	</div>
-	    	<!--End of genre item 3-->
+
 	    </div>
 	    <!--End of genre section-->
 
 	    <!--Begining of latest english songs section-->
 	    <div id="latest-songs">
 	    	<!--Latest English Songs title-->
-	    	<h1>Latest English</h1>
+	    	<h1>Hot Song</h1>
 	    	<!--Songs List Div-->
 	    	<div id="latest-songs-list">
 	    		<!--Song 1-->
-	    		<div id="latest-songs-item">
+	    		<div th:each="Song : ${ListHotSong}" id="latest-songs-item">
 	    			<!--Song Image-->
-	    			 <div id="latest-songs-item-img-1">
+
+
+					<div  th:style="'background-image: url(' + ${Song.getArtist().getAvatarUrl()} + ')'" id="latest-songs-item-img-1">
                      <!--Play button which is hidden and appears on hover-->
 	    			 <div id="latest-songs-item-button" class="hide">
-                		 <i class="fas fa-play"></i>
+                		 <i class="fas fa-play play-song" th:data-song-id="${Song.getId()}" href="javascript:void(0);"></i>
                 	 </div>
                 	 <!--End of play button-->
 	    			</div>
 	    			<!--End of song image-->
 	    			<!--Song title-->
 	    			<div id="latest-songs-item-title">
-	    				<b>Anyone</b><br/><date style="color:lightgrey">January, 2021</date>
+						<div style="display: flex">
+							<b th:text="${#strings.length(Song.getTitle()) &gt; 10 ? Song.getTitle().substring(0, 10) + '...' : Song.getTitle()}"></b>
+							<div style="	margin-left: 110px;" id="dropdown">
+								<i class="fas fa-chevron-circle-down">
+									<div id="dropdown-menu" class="hide">
+										<div id="dropdown-list">
+											<i class="fas fa-play"></i>
+											&nbsp;
+											<a class="font-color play-song" th:data-song-id="${Song.getId()}" href="javascript:void(0);">Play Now</a>
+										</div>
+										<hr/>
+										<div id="dropdown-list">
+											<i class="fas fa-plus"></i>
+											&nbsp;
+											<a href="#latest-release">Add to Queue</a>
+										</div>
+										<hr/>
+										<div id="dropdown-list">
+											<i class="fas fa-plus"></i>
+											&nbsp;
+											<a href="#latest-release">Add to Favourites</a>
+										</div>
+										<hr/>
+										<div id="dropdown-list">
+											<i class="fas fa-exclamation-circle"></i>
+											&nbsp;
+											<a href="#latest-release">Get Info</a>
+										</div>
+									</div>
+								</i>
+							</div>
+						</div>
+
+
+						<br/>
+						<p th:text="${Song.getArtist().getArtistName()}" style="color:lightgrey"></p>
 	    			</div>
+
 	    			<!--End of song title-->
 	    		</div>
 	    		<!--End of song 1-->
-	    		<!--Song 2-->
-	    		<div id="latest-songs-item">
-	    			<!--Song Image-->
-	    			 <div id="latest-songs-item-img-2">
-	    				 <!--Play button which is hidden and appears on hover-->
-              		     <div id="latest-songs-item-button" class="hide">
-                		     <i class="fas fa-play"></i>
-                	     </div>
-                	     <!--End of play button-->
-	    			 </div>
-	    			 <!--End of song image-->
-	    			 <!--Song title-->
-	    			 <div id="latest-songs-item-title">
-	    				 <b>Hey Boy</b><br/><date style="color:lightgrey">November, 2020</date>
-	    			</div>
-	    			<!--End of song title-->
-	    		</div>
-	    		<!--End of song 2-->
-	    		<!--Song 3-->
-	    		<div id="latest-songs-item">
-	    			 <!--Song Image-->
-	    			 <div id="latest-songs-item-img-3">  
-	    			 <!--Play button which is hidden and appears on hover-->         	
-	    				 <div id="latest-songs-item-button" class="hide">
-                		     <i class="fas fa-play"></i>
-                	     </div>
-                	     <!--End of play button-->
-	    			</div>
-	    			<!--End of song image-->
-	    			<!--Song title-->
-	    			<div id="latest-songs-item-title">
-	    				 <b>Afterglow</b><br/><date style="color:lightgrey">December, 2020</date>
-	    			</div>
-	    			<!--End of song title-->
-	    		</div>
-	    		<!--End of song 3-->
-	    		<!--Song 4-->
-	    		<div id="latest-songs-item">
-	    			 <!--Song Image-->
-	    			 <div id="latest-songs-item-img-4">
-	    			 	<!--Play button which is hidden and appears on hover-->
-	    				 <div id="latest-songs-item-button" class="hide">
-                		     <i class="fas fa-play"></i>
-                	     </div>
-                	     <!--End of play button-->
-	    			</div>
-	    			<!--End of song image-->
-	    			<!--Song title-->
-	    			<div id="latest-songs-item-title">
-	    				<b>Vibez</b><br/><date style="color:lightgrey">January, 2021</date>
-	    			</div>
-	    			<!--End of song title-->
-	    		</div>
-	    		<!--End of song 4-->
-	    		<!--Song 4-->
-	    		<div id="latest-songs-item">
-	    			<!--Song Image-->
-	    			<div id="latest-songs-item-img-5">
-	    				<!--Play button which is hidden and appears on hover-->
-	    		         <div id="latest-songs-item-button" class="hide">
-                		     <i class="fas fa-play"></i>
-                	     </div>
-                	     <!--End of play button-->
-	    			</div>
-	    			<!--End of song image-->
-	    			<!--Song title-->
-	    			<div id="latest-songs-item-title">
-	    				<b>Higher</b><br/><date style="color:lightgrey">January, 2021</date>
-	    			</div>
-	    			<!--End of song title-->
-	    		</div>
-	    		<!--End of song 5-->
+
+
 	       </div>
 	       <!--End of songs list div-->
 	    </div>
 	    <!--End of latest english songs section-->
 
 	    <!--Begining of latest hindi songs section-->
-	    <div id="latest-songs">
+	    <div id="latest-songs" style="margin-top: 20px">
 	    	<!--Latest Hindi Songs title-->
-	    	<h1>Latest Hindi</h1>
+	    	<h1>Hot Album</h1>
 	    	<!--Latest songs list div-->
 	    	<div id="latest-songs-list">
-	    		<!--Song 1-->
-	    		 <div id="latest-songs-item">
-	    		 	<!--Song image-->
-	    			 <div id="latest-songs-item-img-6">
-	    			 	<!--Play button which is hidden and appears on hover-->
-	    				  <div id="latest-songs-item-button" class="hide">
-                		     <i class="fas fa-play"></i>
-                	      </div>
-                	      <!--End of play button-->
-	    		      </div>
-	    		      <!--End of song image-->
-	    		      <!--Song title-->
-	    			   <div id="latest-songs-item-title">
-	    				     <b>Kahaan Ho Tum</b><br/><date style="color:lightgrey">November, 2020</date>
-	    			   </div>
-	    			   <!--End of song title-->
-	    		</div>
-	    		<!--End of song 1-->
-	    		<!--Song 2-->
-	    		<div id="latest-songs-item">
-	    			 <!--Song image-->
-	    			 <div id="latest-songs-item-img-7">
-	    			 	<!--Play button which is hidden and appears on hover-->
-	    				 <div id="latest-songs-item-button" class="hide">
-                		     <i class="fas fa-play"></i>
-                	     </div>
-                	     <!--End of play button-->
-	    			 </div>
-	    			 <!--End of song image-->
-	    			 <!--Song title-->
-	    			<div id="latest-songs-item-title">
-	    				 <b>Dil Bechara</b><br/><date style="color:lightgrey">July, 2020</date>
-	    			</div>
-	    			<!--End of song title-->
-	    		</div>
-	    		<!--End of song 2-->
-	    		<!--Song 3-->
-	    		<div id="latest-songs-item">
-	    			 <!--Song image-->
-	    			 <div id="latest-songs-item-img-8">
-	    				<!--Play button which is hidden and appears on hover-->
-	    				 <div id="latest-songs-item-button" class="hide">
-                		     <i class="fas fa-play"></i>
-                	     </div>
-                	    <!--End of play button-->
-                	 <!--End of song image-->
-	    			</div>
-	    			<!--Song title-->
-	    			<div id="latest-songs-item-title">
-	    				 <b>Sun Toh</b><br/><date style="color:lightgrey">November, 2020</date>
-	    			</div>
-	    			<!--End of song title-->
-	    		</div>
-	    		<!--End of song 3-->
-	    		<!--Song 4-->
-	    		<div id="latest-songs-item">
-	    			 <!--Song image-->
-	    			 <div id="latest-songs-item-img-9">
-	    			 	<!--Play button which is hidden and appears on hover-->
-	    				 <div id="latest-songs-item-button" class="hide">
-                		     <i class="fas fa-play"></i>
-                	     </div>
-                	     <!--End of play button-->
-	    			 </div>
-	    			 <!--End of song image-->
-	    			 <!--Song title-->
-	    			<div id="latest-songs-item-title">
-	    				 <b>Oh Saiyaan</b><br/><date style="color:lightgrey">January, 2021</date>
-	    			</div>
-	    			<!--End of song title-->
-	    		</div>
-	    		<!--End of song 4-->
-	    		<!--Song 5-->
-	    		<div id="latest-songs-item">
-	    			<!--Song image-->
-	    			 <div id="latest-songs-item-img-10">
-	    			 	<!--Play button which is hidden and appears on hover-->
-	    				 <div id="latest-songs-item-button" class="hide">
-                		     <i class="fas fa-play"></i>
-                	     </div>
-                	     <!--End of play button-->
-           			 </div>
-           			 <!--End of song image-->
-           			  <!--Song title-->
-	    			<div id="latest-songs-item-title">
-	    				 <b>Rabba Mehar Kari</b><br/><date style="color:lightgrey">February, 2021</date>
-	    			</div>
-	    		    <!--End of song title-->
-	    		</div>
-	    		<!--End of song 5-->
+
+				<div th:each="Album : ${ListHotAlbum}" id="latest-songs-item">
+					<!--Song Image-->
+					<div  th:style="'background-image: url(' + ${Album.getBackgroundUrl()} + ')'" id="latest-songs-item-img-1">
+						<!--Play button which is hidden and appears on hover-->
+						<div id="latest-songs-item-button" class="hide">
+							<i class="fas fa-play"></i>
+						</div>
+						<!--End of play button-->
+					</div>
+					<!--End of song image-->
+					<!--Song title-->
+					<div id="latest-songs-item-title">
+						<div style="display: flex">
+							<b th:text="${#strings.length(Album.getName()) &gt; 10 ? Album.getName().substring(0, 10) + '...' : Album.getName()}"></b>
+							<div style="	margin-left: 110px;" id="dropdown">
+								<i class="fas fa-chevron-circle-down">
+									<div id="dropdown-menu" class="hide">
+										<div id="dropdown-list">
+											<i class="fas fa-play"></i>
+											&nbsp;
+<!--											<a class="font-color play-song" th:data-song-id="${Song.getId()}" href="javascript:void(0);">Play Now</a>-->
+										</div>
+										<hr/>
+										<div id="dropdown-list">
+											<i class="fas fa-plus"></i>
+											&nbsp;
+											<a href="#latest-release">Add to Queue</a>
+										</div>
+										<hr/>
+										<div id="dropdown-list">
+											<i class="fas fa-plus"></i>
+											&nbsp;
+											<a href="#latest-release">Add to Favourites</a>
+										</div>
+										<hr/>
+										<div id="dropdown-list">
+											<i class="fas fa-exclamation-circle"></i>
+											&nbsp;
+											<a href="#latest-release">Get Info</a>
+										</div>
+									</div>
+								</i>
+							</div>
+						</div>
+						<p th:text="${Album.getArtist().getArtistName()}" style="color:lightgrey"></p>
+					</div>
+					<!--End of song title-->
+				</div>
+
 	    	</div>
 	    	<!--End of latest songs list div-->
 	    </div>
@@ -761,68 +450,251 @@
 
    <footer>
    <!--The bottom music bar which pops up when we play a music-->
-	<div id="music-bar" class="hide">
-		<!--Music Icon-->
-		<div id="music-icon">
-			 <img src="Images/latest-release-2.png" alt="music-icon">
-		</div>
-		<!--End of music icon-->
-		<!--Music title-->
-		<div id="music-title">
-			<b>evermore (feat. Bon Iver)</b>
-            <div id="favourite">
-			   <i class="far fa-heart"></i>
-			</div>
-			<div id="remove">
-				<i class="fas fa-ban"></i>
-			</div>
-			<br/>
-			<artist id="music-player-title-artist">Taylor Swift</artist>
-		</div>
-		<!--End of music title-->
-		<!--Play buttons-->
-		<div id="play-buttons">
-			<i class="fas fa-random"></i>
-			<i class="fas fa-backward"></i>
-			<i class="fas fa-pause-circle"></i>
-			<i class="fas fa-forward"></i>
-			<i class="fas fa-undo-alt"></i>
-		</div>
-		<!--End of play buttons-->
-		<!--Music start time-->
-	    <div id="start-time">
-            0:00
-	    </div>
-	    <!--End of music start time-->
-	    <!--Music end time-->
-	    <div id="end-time">
-            5:04
-	    </div>
-	    <!--End of music end time-->
-	    <!--Begining of the progress bar-->
-		<div id="progress-bar">
-		     <div id="circle">
-			     <i class="fas fa-circle"></i>
-		    </div>
-		</div>
-		<!--End of progress bar-->
-		<!--Miscellaneous icons-->
-		<div id="queue">
-			<i class="fas fa-bars"></i>
-		</div>
-		<div id="volume">
-			<i class="fas fa-volume-up"></i>
-		</div>
-		<div id="progress-bar-volume">
-			<div id="circle-volume">
-			  <i class="fas fa-circle"></i>
-		    </div>
-		</div>
-		<!--End of miscellaneous icons-->
-	</div>
-	<!--End of music bar-->
+	   <div id="music-bar" class="hide">
+		   <!-- Music Icon -->
+		   <div id="music-icon">
+			   <img id="music-icon-img" src="default-avatar.png" alt="music-icon"> <!-- Hình ảnh mặc định -->
+		   </div>
+		   <!-- End of music icon -->
+		   <!-- Music title -->
+		   <div id="music-title">
+			   <b></b>
+			   <div id="favourite">
+				   <i class="far fa-heart"></i>
+			   </div>
+			   <div id="remove">
+				   <i class="fas fa-ban"></i>
+			   </div>
+			   <br>
+			   <artist id="music-player-title-artist"></artist>
+		   </div>
+		   <!-- End of music title -->
+		   <!-- Play buttons -->
+		   <div id="play-buttons">
+			   <i class="fas fa-random"></i>
+			   <i class="fas fa-backward"></i>
+			   <i id="play-pause-button" class="fas fa-pause-circle"></i> <!-- Thêm id cho nút phát/dừng -->
+			   <i class="fas fa-forward"></i>
+			   <i class="fas fa-undo-alt"></i>
+		   </div>
+		   <!-- End of play buttons -->
+		   <!-- Music start time -->
+		   <div id="start-time">
+			   0:00
+		   </div>
+		   <!-- End of music start time -->
+		   <!-- Music end time -->
+		   <div id="end-time">
+			   5:04
+		   </div>
+		   <!-- End of music end time -->
+		   <!-- Beginning of the progress bar -->
+		   <!-- Thanh tiến trình -->
+
+		   <progress id="progress-bar" class="progress_controls" max="100" value="0"></progress>
+
+		   <!-- End of progress bar -->
+		   <!-- Miscellaneous icons -->
+		   <div id="queue">
+			   <i class="fas fa-bars"></i>
+		   </div>
+		   <div id="volume">
+			   <i class="fas fa-volume-up"></i>
+		   </div>
+
+		   <!-- End of miscellaneous icons -->
+	   </div>
+
+
+	   <!--End of music bar-->
    </footer>
-   <!--End of footer section-->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var songPlay = /*[[${SongPlay}]]*/ null;
+		if (songPlay !== null) {
+			document.addEventListener('DOMContentLoaded', function() {
+				var musicBar = document.getElementById('music-bar');
+				if (musicBar.classList.contains('hide')) {
+					musicBar.classList.remove('hide');
+				}
+			});
+		}
+		/*]]>*/
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			var currentSong = new Audio(); // Đối tượng Audio để phát nhạc
+			var isPlaying = false; // Biến flag để theo dõi trạng thái phát của nhạc
+			var undoClickCount = 0; // Số lần click undo
+			var isLooping = false; // Biến để kiểm tra xem có đang lặp lại bài hát không
+
+			// Bắt sự kiện click vào thẻ <a>
+			$(".play-song").click(function(event) {
+				event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+				var songId = $(this).data("song-id"); // Lấy ID của bài hát
+				console.log(songId);
+				// Gửi yêu cầu Ajax đến controller
+				$.ajax({
+					type: "GET",
+					url: "/playSong/" + songId,
+					success: function(response) {
+						console.log(response);
+						$("#music-bar").removeClass("hide"); // Hiển thị thanh phát nhạc
+						$("#music-title b").text(response.title); // Cập nhật tiêu đề bài hát
+						if (response.artistName) {
+							$("#music-title artist").text(response.artistName); // Cập nhật tên nghệ sĩ
+						} else {
+							$("#music-title artist").text("Unknown Artist");
+						}
+						if (response.avtUrl) {
+							$("#music-icon img").attr("src", response.avtUrl); // Cập nhật hình ảnh nghệ sĩ
+						} else {
+							$("#music-icon img").attr("src", "default-avatar.png"); // Sử dụng hình ảnh mặc định
+						}
+
+						// Dừng bài hát hiện tại nếu có và phát bài hát mới
+						currentSong.src = response.songUrl; // Gán URL mới cho đối tượng Audio
+						togglePlayPause(); // Phát hoặc dừng nhạc tùy thuộc vào trạng thái isPlaying
+					},
+					error: function(xhr, status, error) {
+						console.error(error);
+					}
+				});
+			});
+			$(".fa-undo-alt").click(function() {
+				if (isLooping ==false) {
+					// Nếu lần nhấn là lẻ
+					isLooping = true; // Bật chế độ lặp lại bài hát
+					$(this).addClass("undo-clicked"); // Thêm class để thay đổi màu của biểu tượng
+				} else {
+					// Nếu lần nhấn là chẵn
+					isLooping = false; // Tắt chế độ lặp lại bài hát
+					$(this).removeClass("undo-clicked"); // Loại bỏ class để trở về màu mặc định
+				}
+				console.log(isLooping)
+			});
+			// Bắt sự kiện click vào nút phát/dừng
+			$("#play-pause-button").click(function() {
+				togglePlayPause();
+			});
+
+			// Bắt sự kiện thay đổi giá trị thanh tiến trình
+			$("#progress-bar").on("input", function() {
+				var progress = $(this).val();
+				var currentTime = (currentSong.duration * progress) / 100;
+				currentSong.currentTime = currentTime;
+			});
+			// Bắt sự kiện mouse down để tua
+			$("#progress-bar").on("click", function(e) {
+				var max = $(this).width(); // Lấy chiều rộng của progress bar
+				var pos = e.pageX - $(this).offset().left; // Vị trí của con trỏ chuột tính từ đầu của progress bar
+				var percentage = (pos / max) * 100; // Tính phần trăm dựa trên vị trí của con trỏ
+				var duration = currentSong.duration; // Lấy thời lượng của bài hát
+
+				var currentTime = (duration * percentage) / 100; // Tính thời gian hiện tại dựa trên phần trăm
+
+				currentSong.currentTime = currentTime; // Gán thời gian hiện tại cho bài hát
+
+				$(this).val(percentage); // Đặt giá trị cho progress bar
+
+				// Tương tự, cập nhật giá trị của progress bar và tô màu tương ứng
+				updateProgressBar(currentTime, duration);
+			});
+
+			function updateProgressBar(currentTime, duration) {
+				var progress = (currentTime / duration) * 100;
+				$("#progressbar").val(progress);
+
+				// Tô màu cho progress bar tương ứng
+				if (progress >= 0 && progress <= 25) {
+					$("#progressbar").removeClass().addClass("progress_controls low-progress");
+				} else if (progress > 25 && progress <= 75) {
+					$("#progressbar").removeClass().addClass("progress_controls mid-progress");
+				} else {
+					$("#progressbar").removeClass().addClass("progress_controls high-progress");
+				}
+			}
+
+			// Function để phát hoặc dừng nhạc
+			function togglePlayPause() {
+				if (isPlaying) {
+					currentSong.pause(); // Dừng nhạc nếu đang phát
+				} else {
+					currentSong.play(); // Phát nhạc nếu đang dừng
+				}
+				isPlaying = !isPlaying; // Đảo ngược trạng thái phát
+				// Cập nhật biểu tượng phát/dừng
+				$("#play-pause-button").toggleClass("fa-pause-circle fa-play-circle");
+			}
+
+			// Bắt sự kiện thời gian của nhạc thay đổi
+			currentSong.addEventListener("timeupdate", function() {
+				var progress = (currentSong.currentTime / currentSong.duration) * 100;
+				var currentTime = currentSong.currentTime;
+				var duration = currentSong.duration;
+				$("#progress-bar").val(progress);
+				// Tô màu cho progress bar tương ứng
+				if (progress >= 0 && progress <= 25) {
+					$("#progress-bar").removeClass().addClass("progress_controls low-progress");
+				} else if (progress > 25 && progress <= 75) {
+					$("#progress-bar").removeClass().addClass("progress_controls mid-progress");
+				} else {
+					$("#progress-bar").removeClass().addClass("progress_controls high-progress");
+				}
+				updateTime(currentTime, duration);
+
+			});
+			function updateTime(currentTime, duration) {
+				// Format thời gian bắt đầu và kết thúc thành phút:giây
+				var currentFormatted = formatTime(currentTime);
+				var durationFormatted = formatTime(duration);
+
+				// Hiển thị thời gian bắt đầu và kết thúc trong HTML
+				$("#start-time").text(currentFormatted);
+				$("#end-time").text(durationFormatted);
+			}
+			function formatTime(time) {
+				var minutes = Math.floor(time / 60);
+				var seconds = Math.floor(time % 60);
+				var formattedTime = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+				return formattedTime;
+			}
+
+			currentSong.addEventListener("ended", function() {
+				if (isLooping) {
+					currentSong.currentTime = 0; // Quay lại đầu bài hát
+					currentSong.play(); // Phát lại bài hát
+				} else {
+					// Nếu không, không làm gì cả
+					// Có thể thêm các xử lý khác ở đây nếu cần
+				}
+			});
+			$("#volume").click(function() {
+				// Toggle mute/unmute
+				if (currentSong.volume === 0) {
+					currentSong.volume = 1; // Bật âm thanh
+					$("#volume i").removeClass("fa-volume-mute").addClass("fa-volume-up"); // Thay đổi biểu tượng
+				} else {
+					currentSong.volume = 0; // Tắt âm thanh
+					$("#volume i").removeClass("fa-volume-up").addClass("fa-volume-mute"); // Thay đổi biểu tượng
+				}
+			});
+		});
+	</script>
+
+
+
+
+
+
+
+
+	<!--End of footer section-->
 </body>
 <!--End of body section-->
 </html>
