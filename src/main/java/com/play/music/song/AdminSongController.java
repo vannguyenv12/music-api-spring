@@ -1,7 +1,6 @@
 package com.play.music.song;
 
-import com.cloudinary.Cloudinary;
-import com.play.music.cloudinary.Upload;
+
 import com.play.music.models.Album;
 import com.play.music.models.Artist;
 import com.play.music.models.Genre;
@@ -9,6 +8,7 @@ import com.play.music.models.Song;
 import com.play.music.repository.AlbumRepository;
 import com.play.music.repository.ArtistRepository;
 import com.play.music.repository.GenreRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +31,7 @@ public class AdminSongController {
     private final AlbumRepository albumRepository;
     private final GenreRepository genreRepository;
     private final ArtistRepository artistRepository;
-    private final Upload cloudinary;
+
 
     @RequestMapping("/admin")
     public String getHomepage(){
