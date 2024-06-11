@@ -790,7 +790,7 @@ aside{
 #aside-dropdown select:focus{
 	outline:none;
 }
-#queue-item{
+.queue-item{
 	height: 100px;
 	width: 320px;
 	background-color: rgb(1, 72, 130,0.5);
@@ -799,7 +799,7 @@ aside{
 	margin-top: 1vh;
 	border-radius:5px;
 }
-#queue-item-img{
+.queue-item-img{
 	height: 80px;
 	width: 80px;
 	padding: 1%;
@@ -813,14 +813,14 @@ aside{
 	font-size: 1.3rem;
 	border-radius: 3px;
 }
-#queue-item-title{
+.queue-item-title{
 	font-family: sans-serif;
 	color: var(--font_color_1);
 	font-size: 0.8rem;
 	position: relative;
 	top:5vh;
 }
-#queue-favourite{
+.queue-favourite{
 	margin-left: 180px;
 	margin-top: -50px;
 	 color: var(--font_color_1);

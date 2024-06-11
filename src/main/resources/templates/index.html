@@ -108,17 +108,10 @@
                      		    <a class="font-color play-song" th:data-song-id="${Song.getId()}" href="javascript:void(0);">Play Now</a>
                      	    </div>
                      		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-plus"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Add to Queue</a>
-                     	    </div>
-                     		<hr/>
-                     		<div id="dropdown-list">
-                     			<i class="fas fa-plus"></i>
-                     			&nbsp;
-                     		    <a href="#latest-release">Add to Favourites</a>
-                     	    </div>
+							<div id="dropdown-list">
+								<i class="fas fa-plus"></i>
+								<a class="font-color add-to-queue" href="javascript:void(0);" th:data-song-id="${Song.getId()}">Add to Queue</a>
+							</div>
                      		<hr/>
                      		<div id="dropdown-list">
                      			<i class="fas fa-exclamation-circle"></i>
@@ -150,9 +143,7 @@
 			            </a>
 			         </div>
 			     </div>
-			     <!--End of Artist 1-->
 
-			     <!--End of Artist 6-->
 		    </div>
 		    <!--End of popular artists list div-->
 	    </div>
@@ -164,11 +155,9 @@
 
         <!--Begining of genre section-->
 	    <div id="genre">
-
 	    	<div th:each="Genre : ${ListGenre}"id="genre-item">
 	    		 <div  th:text="${Genre.getName()}" id="genre-item-background-1"></div>
 	    	</div>
-
 	    </div>
 	    <!--End of genre section-->
 
@@ -206,15 +195,9 @@
 										<hr/>
 										<div id="dropdown-list">
 											<i class="fas fa-plus"></i>
-											&nbsp;
-											<a href="#latest-release">Add to Queue</a>
+											<a class="font-color add-to-queue" href="javascript:void(0);" th:data-song-id="${Song.getId()}">Add to Queue</a>
 										</div>
-										<hr/>
-										<div id="dropdown-list">
-											<i class="fas fa-plus"></i>
-											&nbsp;
-											<a href="#latest-release">Add to Favourites</a>
-										</div>
+
 										<hr/>
 										<div id="dropdown-list">
 											<i class="fas fa-exclamation-circle"></i>
@@ -265,22 +248,11 @@
 							<div style="	margin-left: 110px;" id="dropdown">
 								<i class="fas fa-chevron-circle-down">
 									<div id="dropdown-menu" class="hide">
-										<div id="dropdown-list">
-											<i class="fas fa-play"></i>
-											&nbsp;
-<!--											<a class="font-color play-song" th:data-song-id="${Song.getId()}" href="javascript:void(0);">Play Now</a>-->
-										</div>
-										<hr/>
+
 										<div id="dropdown-list">
 											<i class="fas fa-plus"></i>
 											&nbsp;
 											<a href="#latest-release">Add to Queue</a>
-										</div>
-										<hr/>
-										<div id="dropdown-list">
-											<i class="fas fa-plus"></i>
-											&nbsp;
-											<a href="#latest-release">Add to Favourites</a>
 										</div>
 										<hr/>
 										<div id="dropdown-list">
@@ -304,7 +276,7 @@
 	<!--End of main section-->
 
 	<!--Begining of aside section-->
-    <aside>
+    <aside id="QueueList">
         <!--Aside section header-->
    	    <div id="aside-header">
    	     <!--Aside section title-->
@@ -326,123 +298,9 @@
         <!--End of aside section header-->
         <!--List of Songs-->
         <!--Song 1-->
-   	     <div id="queue-item">
-   	     	<!--Song Image-->
-   		     <div id="queue-item-img"></div>
-   		         <!--Song title-->
-   		     <div id="queue-item-title">
-                 <b>willow</b>
-                 <p style="color:lightgrey;">Taylor Swift</p>
-             </div>
-             <!--End of song title-->
-             <!--Favourite icon-->
-             <div id="queue-favourite">
-        	     <i class="far fa-heart"></i>
-             </div>
-             <!--End of favourite icon-->
-       	 </div>
-       	 <!--End of song 1-->
-       	 <!--Song 2-->
-   	     <div id="queue-item">
-   	     	<!--Song Image-->
-   		     <div id="queue-item-img"></div>
-   		         <!--Song title-->
-   		     <div id="queue-item-title">
-                 <b>willow</b>
-                 <p style="color:lightgrey;">Taylor Swift</p>
-             </div>
-             <!--End of song title-->
-             <!--Favourite icon-->
-             <div id="queue-favourite">
-        	     <i class="far fa-heart"></i>
-             </div>
-             <!--End of favourite icon-->
-       	 </div>
-       	 <!--End of song 2-->
-       	 <!--Song 3-->
-   	     <div id="queue-item">
-   	     	<!--Song Image-->
-   		     <div id="queue-item-img"></div>
-   		         <!--Song title-->
-   		     <div id="queue-item-title">
-                 <b>willow</b>
-                 <p style="color:lightgrey;">Taylor Swift</p>
-             </div>
-             <!--End of song title-->
-             <!--Favourite icon-->
-             <div id="queue-favourite">
-        	     <i class="far fa-heart"></i>
-             </div>
-             <!--End of favourite icon-->
-       	 </div>
-       	 <!--End of song 3-->
-       	 <!--Song 4-->
-   	     <div id="queue-item">
-   	     	<!--Song Image-->
-   		     <div id="queue-item-img"></div>
-   		         <!--Song title-->
-   		     <div id="queue-item-title">
-                 <b>willow</b>
-                 <p style="color:lightgrey;">Taylor Swift</p>
-             </div>
-             <!--End of song title-->
-             <!--Favourite icon-->
-             <div id="queue-favourite">
-        	     <i class="far fa-heart"></i>
-             </div>
-             <!--End of favourite icon-->
-       	 </div>
-       	 <!--End of song 4-->
-       	 <!--Song 5-->
-   	     <div id="queue-item">
-   	     	<!--Song Image-->
-   		     <div id="queue-item-img"></div>
-   		         <!--Song title-->
-   		     <div id="queue-item-title">
-                 <b>willow</b>
-                 <p style="color:lightgrey;">Taylor Swift</p>
-             </div>
-             <!--End of song title-->
-             <!--Favourite icon-->
-             <div id="queue-favourite">
-        	     <i class="far fa-heart"></i>
-             </div>
-             <!--End of favourite icon-->
-       	 </div>
-       	 <!--End of song 5-->
-       	 <!--Song 6-->
-   	     <div id="queue-item">
-   	     	<!--Song Image-->
-   		     <div id="queue-item-img"></div>
-   		         <!--Song title-->
-   		     <div id="queue-item-title">
-                 <b>willow</b>
-                 <p style="color:lightgrey;">Taylor Swift</p>
-             </div>
-             <!--End of song title-->
-             <!--Favourite icon-->
-             <div id="queue-favourite">
-        	     <i class="far fa-heart"></i>
-             </div>
-             <!--End of favourite icon-->
-       	 </div>
-       	 <!--End of song 6-->
-       	 <!--Song 7-->
-   	     <div id="queue-item">
-   	     	<!--Song Image-->
-   		     <div id="queue-item-img"></div>
-   		         <!--Song title-->
-   		     <div id="queue-item-title">
-                 <b>willow</b>
-                 <p style="color:lightgrey;">Taylor Swift</p>
-             </div>
-             <!--End of song title-->
-             <!--Favourite icon-->
-             <div id="queue-favourite">
-        	     <i class="far fa-heart"></i>
-             </div>
-             <!--End of favourite icon-->
-       	 </div>
+
+
+
        	 <!--End of song 7-->
    </aside>
    <!--End of aside section-->
@@ -507,6 +365,7 @@
 
 	   <!--End of music bar-->
    </footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var songPlay = /*[[${SongPlay}]]*/ null;
@@ -520,29 +379,24 @@
 		}
 		/*]]>*/
 	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-	<!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 	<script th:inline="javascript">
 		$(document).ready(function() {
 			var currentSong = new Audio(); // Đối tượng Audio để phát nhạc
 			var isPlaying = false; // Biến flag để theo dõi trạng thái phát của nhạc
 			var undoClickCount = 0; // Số lần click undo
 			var isLooping = false; // Biến để kiểm tra xem có đang lặp lại bài hát không
-
+			var isRandoming=false;
+			var listqueueitem=getAllQueueItems();
+			var currentPostition=0;
 			// Bắt sự kiện click vào thẻ <a>
-			$(".play-song").click(function(event) {
+			$(document).on('click', '.play-song', function(event) {
 				event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
 				var songId = $(this).data("song-id"); // Lấy ID của bài hát
-				console.log(songId);
 				// Gửi yêu cầu Ajax đến controller
 				$.ajax({
 					type: "GET",
 					url: "/playSong/" + songId,
 					success: function(response) {
-						console.log(response);
 						$("#music-bar").removeClass("hide"); // Hiển thị thanh phát nhạc
 						$("#music-title b").text(response.title); // Cập nhật tiêu đề bài hát
 						if (response.artistName) {
@@ -555,7 +409,6 @@
 						} else {
 							$("#music-icon img").attr("src", "default-avatar.png"); // Sử dụng hình ảnh mặc định
 						}
-
 						// Dừng bài hát hiện tại nếu có và phát bài hát mới
 						currentSong.src = response.songUrl; // Gán URL mới cho đối tượng Audio
 						togglePlayPause(); // Phát hoặc dừng nhạc tùy thuộc vào trạng thái isPlaying
@@ -565,6 +418,107 @@
 					}
 				});
 			});
+
+			// Bắt sự kiện click vào thẻ <a> có class .add-to-queue
+			$(document).on('click', '.add-to-queue', function(event) {
+				event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+				var songId = $(this).data("song-id"); // Lấy ID của bài hát
+				// Gửi yêu cầu Ajax đến controller
+				$.ajax({
+					type: "GET",
+					url: "/playSong/" + songId,
+					success: function(response) {
+						var title = response.title;  // Extracting title from response
+						var artist = response.artistName;  // Extracting artist from response
+						var avtUrl = response.avtUrl;  // Extracting avatar URL from response
+
+						var queueitem1 = '<div class="queue-item">' +
+								'<div class="queue-item-img" style="background-image: url(\'' + avtUrl + '\');">' +
+								'<div  id="latest-release-img-button" class="">' +
+								'<a class="font-color play-song" data-song-id="' + songId + '" href="javascript:void(0);">' +
+								'<i style="color: transparent" class="fas fa-play"></i>' +
+								'</a>' +
+								'</div>' +
+								'</div>' +
+								'<div class="queue-item-title">' +
+								'<b>' + title + '</b>' +
+								'<p style="color:lightgrey;">' + artist + '</p>' +
+								'</div>' +
+								'<div class="queue-favourite">' +
+								'<i class="fas fa-trash-alt"></i>' +
+								'</div>' +
+								'</div>';
+
+						$("#QueueList").append(queueitem1);
+					},
+					error: function(xhr, status, error) {
+						console.error(error);
+					}
+				});
+			});
+			$('.fa-forward').click(function(event) {
+				event.preventDefault();
+
+				// Get all queue items
+				var nextQueueItem;
+				var queueItems = getAllQueueItems();
+				if (isRandoming){
+
+					var randomIndex = Math.floor(Math.random() * queueItems.length);
+					console.log(randomIndex)
+					nextQueueItem = queueItems.eq(randomIndex);
+				}else {
+					currentPostition++;
+					console.log(currentPostition)
+
+					if (currentPostition === queueItems.length ) {
+						currentPostition = 0; // Reset to the first item if it's the last item
+						nextQueueItem = queueItems.eq(0);
+					}else
+					{
+						nextQueueItem = queueItems.eq(currentPostition);
+					}
+				}
+				nextQueueItem.find('.play-song').click();
+
+
+
+			});
+			$('.fa-backward').click(function(event) {
+				event.preventDefault();
+
+				// Get all queue items
+				var queueItems = getAllQueueItems();
+				currentPostition--;
+				console.log(currentPostition)
+				var nextQueueItem;
+				// If no item is currently playing or if it's the last item, do nothing
+				if (currentPostition == -1 ) {
+					currentPostition =  queueItems.length-1; // Reset to the first item if it's the last item
+					nextQueueItem = queueItems.eq(currentPostition);
+				}else
+				{
+					nextQueueItem = queueItems.eq(currentPostition);
+				}
+				nextQueueItem.find('.play-song').click();
+
+
+			});
+			$(document).on('click', '.queue-favourite', function(event) {
+				event.preventDefault();
+
+				// Tìm phần tử cha của biểu tượng xóa
+				var queueItem = $(this).closest('.queue-item');
+
+				// Xoá phần tử cha ra khỏi DOM
+				queueItem.remove();
+
+				// Cập nhật danh sách phần tử trong queue
+				listqueueitem = getAllQueueItems();
+			});
+			function getAllQueueItems() {
+				return $('#QueueList').find('.queue-item');
+			}
 			$(".fa-undo-alt").click(function() {
 				if (isLooping ==false) {
 					// Nếu lần nhấn là lẻ
@@ -575,7 +529,17 @@
 					isLooping = false; // Tắt chế độ lặp lại bài hát
 					$(this).removeClass("undo-clicked"); // Loại bỏ class để trở về màu mặc định
 				}
-				console.log(isLooping)
+			});
+			$(".fa-random").click(function() {
+				if (isRandoming ==false) {
+					// Nếu lần nhấn là lẻ
+					isRandoming = true; // Bật chế độ lặp lại bài hát
+					$(this).addClass("undo-clicked"); // Thêm class để thay đổi màu của biểu tượng
+				} else {
+					// Nếu lần nhấn là chẵn
+					isRandoming = false; // Tắt chế độ lặp lại bài hát
+					$(this).removeClass("undo-clicked"); // Loại bỏ class để trở về màu mặc định
+				}
 			});
 			// Bắt sự kiện click vào nút phát/dừng
 			$("#play-pause-button").click(function() {
@@ -669,8 +633,24 @@
 					currentSong.currentTime = 0; // Quay lại đầu bài hát
 					currentSong.play(); // Phát lại bài hát
 				} else {
-					// Nếu không, không làm gì cả
-					// Có thể thêm các xử lý khác ở đây nếu cần
+					var nextQueueItem;
+					var queueItems = getAllQueueItems();
+					if (isRandoming){
+						var randomIndex = Math.floor(Math.random() * queueItems.length);
+						nextQueueItem = queueItems.eq(randomIndex);
+					}else {
+						currentPostition++;
+						console.log(currentPostition)
+
+						if (currentPostition === queueItems.length ) {
+							currentPostition = 0; // Reset to the first item if it's the last item
+							nextQueueItem = queueItems.eq(0);
+						}else
+						{
+							nextQueueItem = queueItems.eq(currentPostition);
+						}
+					}
+					nextQueueItem.find('.play-song').click();
 				}
 			});
 			$("#volume").click(function() {
@@ -685,6 +665,7 @@
 			});
 		});
 	</script>
+
 
 
 
