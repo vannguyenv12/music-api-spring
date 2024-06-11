@@ -3,10 +3,8 @@ import java.util.Collections;
 import com.play.music.album.AlbumService;
 import com.play.music.artist.ArtistService;
 import com.play.music.genre.GenreService;
-import com.play.music.models.Album;
-import com.play.music.models.Artist;
-import com.play.music.models.Genre;
-import com.play.music.models.Song;
+import com.play.music.models.*;
+import com.play.music.playlist.PlaylistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +25,14 @@ public class SongController {
     private final ArtistService artistService;
     private final GenreService genreService;
 
-    public SongController(SongService songService, AlbumService albumService, ArtistService artistService, GenreService genreService) {
+    private final PlaylistService playlistService;
+
+    public SongController(SongService songService, AlbumService albumService, ArtistService artistService, GenreService genreService, PlaylistService playlistService) {
         this.songService = songService;
         this.albumService = albumService;
         this.artistService = artistService;
         this.genreService = genreService;
+        this.playlistService = playlistService;
     }
 
     @RequestMapping("/")
@@ -40,6 +41,7 @@ public class SongController {
         List<Album> TempListAlbum = albumService.findAll();
         List<Artist> TempListArtist = artistService.findAll();
         List<Genre> TempListGenre = genreService.findAll();
+
 
         List<Song> ListNewSong = new ArrayList<>();
         List<Song> ListHotSong = new ArrayList<>();
@@ -74,6 +76,7 @@ public class SongController {
         model.addAttribute("ListGenre", ListGenre);
         model.addAttribute("ListHotAlbum", ListHotAlbum);
         model.addAttribute("ListHotSong", ListHotSong);
+
         return "index";
     }
 //    @GetMapping("/playSong/{id}")

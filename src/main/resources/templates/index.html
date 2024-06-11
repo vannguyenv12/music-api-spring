@@ -64,10 +64,15 @@
 
 		<div id="new-releases">
 			<!-- Dùng th:each để lặp qua danh sách Album -->
-			<img th:each="Album : ${ListAlbum}"
-				 th:if="${Album != null and Album.getBackgroundUrl() != null}"
-				 th:src="@{${Album.getBackgroundUrl()}}"
-			/>
+			<th:block th:each="Album : ${ListAlbum}">
+				<a th:href="@{'/albums/' + ${Album.id}}">
+					<img
+						 th:if="${Album != null and Album.getBackgroundUrl() != null}"
+						 th:src="@{${Album.getBackgroundUrl()}}"
+					/>
+				</a>
+			</th:block>
+
 		</div>
 
 
@@ -233,13 +238,15 @@
 
 				<div th:each="Album : ${ListHotAlbum}" id="latest-songs-item">
 					<!--Song Image-->
-					<div  th:style="'background-image: url(' + ${Album.getBackgroundUrl()} + ')'" id="latest-songs-item-img-1">
-						<!--Play button which is hidden and appears on hover-->
-						<div id="latest-songs-item-button" class="hide">
-							<i class="fas fa-play"></i>
+					<a th:href="@{'/albums/' + ${Album.id}}">
+						<div  th:style="'background-image: url(' + ${Album.getBackgroundUrl()} + ')'" id="latest-songs-item-img-1">
+							<!--Play button which is hidden and appears on hover-->
+							<div id="latest-songs-item-button" class="hide">
+								<i class="fas fa-play"></i>
+							</div>
+							<!--End of play button-->
 						</div>
-						<!--End of play button-->
-					</div>
+					</a>
 					<!--End of song image-->
 					<!--Song title-->
 					<div id="latest-songs-item-title">
