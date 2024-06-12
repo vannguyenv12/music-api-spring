@@ -568,33 +568,33 @@
       /*<![CDATA[*/
       var songPlay = /*[[${SongPlay}]]*/ null;
       if (songPlay !== null) {
-        document.addEventListener("DOMContentLoaded", function () {
-          var musicBar = document.getElementById("music-bar");
-          if (musicBar.classList.contains("hide")) {
-            musicBar.classList.remove("hide");
+        document.addEventListener('DOMContentLoaded', function() {
+          var musicBar = document.getElementById('music-bar');
+          if (musicBar.classList.contains('hide')) {
+            musicBar.classList.remove('hide');
           }
         });
       }
       /*]]>*/
     </script>
     <script th:inline="javascript">
-      $(document).ready(function () {
+      $(document).ready(function() {
         var currentSong = new Audio(); // Đối tượng Audio để phát nhạc
         var isPlaying = false; // Biến flag để theo dõi trạng thái phát của nhạc
         var undoClickCount = 0; // Số lần click undo
         var isLooping = false; // Biến để kiểm tra xem có đang lặp lại bài hát không
-        var isRandoming = false;
-        var listqueueitem = getAllQueueItems();
-        var currentPostition = 0;
+        var isRandoming=false;
+        var listqueueitem=getAllQueueItems();
+        var currentPostition=0;
         // Bắt sự kiện click vào thẻ <a>
-        $(document).on("click", ".play-song", function (event) {
+        $(document).on('click', '.play-song', function(event) {
           event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
           var songId = $(this).data("song-id"); // Lấy ID của bài hát
           // Gửi yêu cầu Ajax đến controller
           $.ajax({
             type: "GET",
             url: "/playSong/" + songId,
-            success: function (response) {
+            success: function(response) {
               $("#music-bar").removeClass("hide"); // Hiển thị thanh phát nhạc
               $("#music-title b").text(response.title); // Cập nhật tiêu đề bài hát
               if (response.artistName) {
@@ -611,103 +611,102 @@
               currentSong.src = response.songUrl; // Gán URL mới cho đối tượng Audio
               togglePlayPause(); // Phát hoặc dừng nhạc tùy thuộc vào trạng thái isPlaying
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
               console.error(error);
-            },
+            }
           });
         });
 
         // Bắt sự kiện click vào thẻ <a> có class .add-to-queue
-        $(document).on("click", ".add-to-queue", function (event) {
+        $(document).on('click', '.add-to-queue', function(event) {
           event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
           var songId = $(this).data("song-id"); // Lấy ID của bài hát
           // Gửi yêu cầu Ajax đến controller
           $.ajax({
             type: "GET",
             url: "/playSong/" + songId,
-            success: function (response) {
-              var title = response.title; // Extracting title from response
-              var artist = response.artistName; // Extracting artist from response
-              var avtUrl = response.avtUrl; // Extracting avatar URL from response
+            success: function(response) {
+              var title = response.title;  // Extracting title from response
+              var artist = response.artistName;  // Extracting artist from response
+              var avtUrl = response.avtUrl;  // Extracting avatar URL from response
 
-              var queueitem1 =
-                '<div class="queue-item">' +
-                '<div class="queue-item-img" style="background-image: url(\'' +
-                avtUrl +
-                "');\">" +
-                '<div  id="latest-release-img-button" class="">' +
-                '<a class="font-color play-song" data-song-id="' +
-                songId +
-                '" href="javascript:void(0);">' +
-                '<i style="color: transparent" class="fas fa-play"></i>' +
-                "</a>" +
-                "</div>" +
-                "</div>" +
-                '<div class="queue-item-title">' +
-                "<b>" +
-                title +
-                "</b>" +
-                '<p style="color:lightgrey;">' +
-                artist +
-                "</p>" +
-                "</div>" +
-                '<div class="queue-favourite">' +
-                '<i class="fas fa-trash-alt"></i>' +
-                "</div>" +
-                "</div>";
+              var queueitem1 = '<div class="queue-item">' +
+                      '<div class="queue-item-img" style="background-image: url(\'' + avtUrl + '\');">' +
+                      '<div  id="latest-release-img-button" class="">' +
+                      '<a class="font-color play-song" data-song-id="' + songId + '" href="javascript:void(0);">' +
+                      '<i style="color: transparent" class="fas fa-play"></i>' +
+                      '</a>' +
+                      '</div>' +
+                      '</div>' +
+                      '<div class="queue-item-title">' +
+                      '<b>' + title + '</b>' +
+                      '<p style="color:lightgrey;">' + artist + '</p>' +
+                      '</div>' +
+                      '<div class="queue-favourite">' +
+                      '<i class="fas fa-trash-alt"></i>' +
+                      '</div>' +
+                      '</div>';
 
               $("#QueueList").append(queueitem1);
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
               console.error(error);
-            },
+            }
           });
         });
-        $(".fa-forward").click(function (event) {
+        $('.fa-forward').click(function(event) {
           event.preventDefault();
 
           // Get all queue items
           var nextQueueItem;
           var queueItems = getAllQueueItems();
-          if (isRandoming) {
-            var randomIndex = Math.floor(Math.random() * queueItems.length);
-            console.log(randomIndex);
-            nextQueueItem = queueItems.eq(randomIndex);
-          } else {
-            currentPostition++;
-            console.log(currentPostition);
+          if (isRandoming){
 
-            if (currentPostition === queueItems.length) {
+            var randomIndex = Math.floor(Math.random() * queueItems.length);
+            console.log(randomIndex)
+            nextQueueItem = queueItems.eq(randomIndex);
+          }else {
+            currentPostition++;
+            console.log(currentPostition)
+
+            if (currentPostition === queueItems.length ) {
               currentPostition = 0; // Reset to the first item if it's the last item
               nextQueueItem = queueItems.eq(0);
-            } else {
+            }else
+            {
               nextQueueItem = queueItems.eq(currentPostition);
             }
           }
-          nextQueueItem.find(".play-song").click();
+          nextQueueItem.find('.play-song').click();
+
+
+
         });
-        $(".fa-backward").click(function (event) {
+        $('.fa-backward').click(function(event) {
           event.preventDefault();
 
           // Get all queue items
           var queueItems = getAllQueueItems();
           currentPostition--;
-          console.log(currentPostition);
+          console.log(currentPostition)
           var nextQueueItem;
           // If no item is currently playing or if it's the last item, do nothing
-          if (currentPostition == -1) {
-            currentPostition = queueItems.length - 1; // Reset to the first item if it's the last item
+          if (currentPostition == -1 ) {
+            currentPostition =  queueItems.length-1; // Reset to the first item if it's the last item
             nextQueueItem = queueItems.eq(currentPostition);
-          } else {
+          }else
+          {
             nextQueueItem = queueItems.eq(currentPostition);
           }
-          nextQueueItem.find(".play-song").click();
+          nextQueueItem.find('.play-song').click();
+
+
         });
-        $(document).on("click", ".queue-favourite", function (event) {
+        $(document).on('click', '.queue-favourite', function(event) {
           event.preventDefault();
 
           // Tìm phần tử cha của biểu tượng xóa
-          var queueItem = $(this).closest(".queue-item");
+          var queueItem = $(this).closest('.queue-item');
 
           // Xoá phần tử cha ra khỏi DOM
           queueItem.remove();
@@ -716,10 +715,10 @@
           listqueueitem = getAllQueueItems();
         });
         function getAllQueueItems() {
-          return $("#QueueList").find(".queue-item");
+          return $('#QueueList').find('.queue-item');
         }
-        $(".fa-undo-alt").click(function () {
-          if (isLooping == false) {
+        $(".fa-undo-alt").click(function() {
+          if (isLooping ==false) {
             // Nếu lần nhấn là lẻ
             isLooping = true; // Bật chế độ lặp lại bài hát
             $(this).addClass("undo-clicked"); // Thêm class để thay đổi màu của biểu tượng
@@ -729,8 +728,8 @@
             $(this).removeClass("undo-clicked"); // Loại bỏ class để trở về màu mặc định
           }
         });
-        $(".fa-random").click(function () {
-          if (isRandoming == false) {
+        $(".fa-random").click(function() {
+          if (isRandoming ==false) {
             // Nếu lần nhấn là lẻ
             isRandoming = true; // Bật chế độ lặp lại bài hát
             $(this).addClass("undo-clicked"); // Thêm class để thay đổi màu của biểu tượng
@@ -741,18 +740,18 @@
           }
         });
         // Bắt sự kiện click vào nút phát/dừng
-        $("#play-pause-button").click(function () {
+        $("#play-pause-button").click(function() {
           togglePlayPause();
         });
 
         // Bắt sự kiện thay đổi giá trị thanh tiến trình
-        $("#progress-bar").on("input", function () {
+        $("#progress-bar").on("input", function() {
           var progress = $(this).val();
           var currentTime = (currentSong.duration * progress) / 100;
           currentSong.currentTime = currentTime;
         });
         // Bắt sự kiện mouse down để tua
-        $("#progress-bar").on("click", function (e) {
+        $("#progress-bar").on("click", function(e) {
           var max = $(this).width(); // Lấy chiều rộng của progress bar
           var pos = e.pageX - $(this).offset().left; // Vị trí của con trỏ chuột tính từ đầu của progress bar
           var percentage = (pos / max) * 100; // Tính phần trăm dựa trên vị trí của con trỏ
@@ -774,17 +773,11 @@
 
           // Tô màu cho progress bar tương ứng
           if (progress >= 0 && progress <= 25) {
-            $("#progressbar")
-              .removeClass()
-              .addClass("progress_controls low-progress");
+            $("#progressbar").removeClass().addClass("progress_controls low-progress");
           } else if (progress > 25 && progress <= 75) {
-            $("#progressbar")
-              .removeClass()
-              .addClass("progress_controls mid-progress");
+            $("#progressbar").removeClass().addClass("progress_controls mid-progress");
           } else {
-            $("#progressbar")
-              .removeClass()
-              .addClass("progress_controls high-progress");
+            $("#progressbar").removeClass().addClass("progress_controls high-progress");
           }
         }
 
@@ -801,26 +794,21 @@
         }
 
         // Bắt sự kiện thời gian của nhạc thay đổi
-        currentSong.addEventListener("timeupdate", function () {
+        currentSong.addEventListener("timeupdate", function() {
           var progress = (currentSong.currentTime / currentSong.duration) * 100;
           var currentTime = currentSong.currentTime;
           var duration = currentSong.duration;
           $("#progress-bar").val(progress);
           // Tô màu cho progress bar tương ứng
           if (progress >= 0 && progress <= 25) {
-            $("#progress-bar")
-              .removeClass()
-              .addClass("progress_controls low-progress");
+            $("#progress-bar").removeClass().addClass("progress_controls low-progress");
           } else if (progress > 25 && progress <= 75) {
-            $("#progress-bar")
-              .removeClass()
-              .addClass("progress_controls mid-progress");
+            $("#progress-bar").removeClass().addClass("progress_controls mid-progress");
           } else {
-            $("#progress-bar")
-              .removeClass()
-              .addClass("progress_controls high-progress");
+            $("#progress-bar").removeClass().addClass("progress_controls high-progress");
           }
           updateTime(currentTime, duration);
+
         });
         function updateTime(currentTime, duration) {
           // Format thời gian bắt đầu và kết thúc thành phút:giây
@@ -834,50 +822,50 @@
         function formatTime(time) {
           var minutes = Math.floor(time / 60);
           var seconds = Math.floor(time % 60);
-          var formattedTime =
-            minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+          var formattedTime = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
           return formattedTime;
         }
 
-        currentSong.addEventListener("ended", function () {
+        currentSong.addEventListener("ended", function() {
           if (isLooping) {
             currentSong.currentTime = 0; // Quay lại đầu bài hát
             currentSong.play(); // Phát lại bài hát
           } else {
             var nextQueueItem;
             var queueItems = getAllQueueItems();
-            if (isRandoming) {
+            if (isRandoming){
               var randomIndex = Math.floor(Math.random() * queueItems.length);
               nextQueueItem = queueItems.eq(randomIndex);
-            } else {
+            }else {
               currentPostition++;
-              console.log(currentPostition);
+              console.log(currentPostition)
 
-              if (currentPostition === queueItems.length) {
+              if (currentPostition === queueItems.length ) {
                 currentPostition = 0; // Reset to the first item if it's the last item
                 nextQueueItem = queueItems.eq(0);
-              } else {
+              }else
+              {
                 nextQueueItem = queueItems.eq(currentPostition);
               }
             }
-            nextQueueItem.find(".play-song").click();
+            nextQueueItem.find('.play-song').click();
           }
         });
-        $("#volume").click(function () {
+        $("#volume").click(function() {
           // Toggle mute/unmute
           if (currentSong.volume === 0) {
             currentSong.volume = 1; // Bật âm thanh
-            $("#volume i")
-              .removeClass("fa-volume-mute")
-              .addClass("fa-volume-up"); // Thay đổi biểu tượng
+            $("#volume i").removeClass("fa-volume-mute").addClass("fa-volume-up"); // Thay đổi biểu tượng
           } else {
             currentSong.volume = 0; // Tắt âm thanh
-            $("#volume i")
-              .removeClass("fa-volume-up")
-              .addClass("fa-volume-mute"); // Thay đổi biểu tượng
+            $("#volume i").removeClass("fa-volume-up").addClass("fa-volume-mute"); // Thay đổi biểu tượng
           }
         });
       });
+    </script>
+
+
+    <script th:inline="javascript">
 
         function loadPlaylists(songId) {
           const dropdown = document.getElementById(`playlist-dropdown-${songId}`);
