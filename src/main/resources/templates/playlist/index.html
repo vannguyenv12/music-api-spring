@@ -4,7 +4,7 @@
 <head>
     <title>Music Player</title>
     <!--Linking the CSS stylesheet using extrenal CSS-->
-    <link rel="stylesheet" type="text/css" href="MusicPlayerStyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/MusicPlayerStyle.css">
     <!--Font Awesome script for using icons from font awesome-->
     <script src="https://kit.fontawesome.com/6f0f83005a.js" crossorigin="anonymous"></script>
     <!--Adds responsiveness to the website-->
@@ -19,7 +19,9 @@
     <!--Music Player Logo div-->
     <div id="music-player-tag">
         <div id="music-player-logo">
-            <img src="Images/music-player-logo.png">
+            <a href="/">
+                <img src="images/music-player-logo.png" />
+            </a>
         </div>
         <!--Music Player Logo div end-->
 
@@ -78,7 +80,7 @@
         <!--Similar artist-->
         <th:block th:each="playlist : ${playlists}">
             <div id="similar-artist">
-                <div id="artist-img"></div>
+                <div id="artist-img" style="background-image: url('/images/artist-7.jpg')"></div>
                 <div id="song-details">
                     <a style="color: white; text-decoration: none" th:href="@{'/playlists/' + ${playlist.id}}">[[${playlist.name}]]</a>
                     <br/>

@@ -51,12 +51,13 @@ public class PlaylistController {
         return "redirect:" + referer;
     }
 
-    @GetMapping("/playlists/add/{playlistId}/remove-song/{songId}")
+    @GetMapping("/playlists/add/{playlistId}/add-song/{songId}")
     public String addSong(@PathVariable(name = "playlistId") Integer playlistId,
                              @PathVariable(name = "songId") Integer songId,
                              @RequestHeader(value = "Referer", required = false) String referer,
                              RedirectAttributes redirectAttributes) {
 
+        System.out.println("hello: " + playlistId + " " + songId);
         playlistService.addSong(playlistId, songId);
 
         return "redirect:" + referer;

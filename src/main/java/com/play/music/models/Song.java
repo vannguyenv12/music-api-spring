@@ -32,7 +32,7 @@ public class Song {
     @ManyToOne
     private Album album;
 
-    @ManyToMany(mappedBy = "songs", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "songs", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Playlist> playlists = new HashSet<>();
 
     public void addPlayList(Playlist playlist) {

@@ -68,10 +68,9 @@ public class PlaylistService {
 
         Song song = songOptional.get();
 
-        if (playlist.getSongs().contains(song)) {
-            playlist.getSongs().add(song);
-            playlistRepository.save(playlist);
-        }
+        playlist.getSongs().add(song);
+        playlistRepository.save(playlist);
+
     }
 
     public void savePlaylist(Playlist playlist, User user) {

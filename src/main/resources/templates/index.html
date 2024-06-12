@@ -27,7 +27,9 @@
       <!--Music Player Logo div-->
       <div id="music-player-tag">
         <div id="music-player-logo">
-          <img src="Images/music-player-logo.png" />
+          <a href="/">
+            <img src="images/music-player-logo.png" />
+          </a>
         </div>
         <!--Music Player Logo div end-->
 
@@ -49,7 +51,10 @@
 
         <!--Notification Bell div-->
         <div id="notifications">
-          <i class="fas fa-bell"></i>
+          <a href="/playlists">
+            <i class="fas fa-bell"></i>
+          </a>
+
         </div>
         <!--Notification Bell div end-->
 
@@ -59,10 +64,11 @@
             src="/Images/user-image.jpg"
             onclick="window.location.href='/login';"
           />
+
           <a
             href="/logout"
             style="color: white"
-            th:text="'Xin chào, ' + ${username}"
+            th:text="'Xin chào, ' + ${session.username != null ? session.username : 'User'}"
             >Xin chào, User</a
           >
         </div>
@@ -115,7 +121,7 @@
             <!--Dropdown menu icon-->
             <div id="dropdown">
               <i class="fas fa-chevron-circle-down">
-                <div id="dropdown-menu" class="hide">
+                <div id="dropdown-menu"  class="hide">
                   <div id="dropdown-list">
                     <i class="fas fa-play"></i>
                     &nbsp;
@@ -125,7 +131,7 @@
                   <div id="dropdown-list">
                     <i class="fas fa-plus"></i>
                     &nbsp;
-                    <a href="#latest-release">Add to Queue</a>
+                    <a href="#latest-release">Add to Playlist</a>
                   </div>
                   <hr />
                   <div id="dropdown-list">
@@ -359,11 +365,7 @@
           <!--Song 1-->
           <div th:each="Song : ${ListHotSong}" id="latest-songs-item">
             <!--Song Image-->
-
-            <div
-              th:style="'background-image: url(' + ${Song.getArtist().getAvatarUrl()} + ')'"
-              id="latest-songs-item-img-1"
-            >
+            <div th:style="'background-image: url(' + ${Song.getArtist().getAvatarUrl()} + ')'" id="latest-songs-item-img-1">
               <!--Play button which is hidden and appears on hover-->
               <div id="latest-songs-item-button" class="hide">
                 <i class="fas fa-play"></i>
@@ -374,34 +376,29 @@
             <!--Song title-->
             <div id="latest-songs-item-title">
               <div style="display: flex">
-                <b
-                  th:text="${#strings.length(Song.getTitle()) &gt; 10 ? Song.getTitle().substring(0, 10) + '...' : Song.getTitle()}"
-                ></b>
+                <b th:text="${#strings.length(Song.getTitle()) > 10 ? Song.getTitle().substring(0, 10) + '...' : Song.getTitle()}"></b>
                 <div style="margin-left: 110px" id="dropdown">
                   <i class="fas fa-chevron-circle-down">
                     <div id="dropdown-menu" class="hide">
                       <div id="dropdown-list">
                         <i class="fas fa-play"></i>
                         &nbsp;
-                        <a
-                          class="font-color play-song"
-                          th:data-song-id="${Song.getId()}"
-                          href="javascript:void(0);"
-                          >Play Now</a
-                        >
+                        <a class="font-color play-song" th:data-song-id="${Song.getId()}" href="javascript:void(0);">Play Now</a>
                       </div>
-                      <hr />
+                      <hr/>
                       <div id="dropdown-list">
                         <i class="fas fa-plus"></i>
-                        <a
-                          class="font-color add-to-queue"
-                          href="javascript:void(0);"
-                          th:data-song-id="${Song.getId()}"
-                          >Add to Queue</a
-                        >
+                        <a class="font-color add-to-queue" href="javascript:void(0);" th:data-song-id="${Song.getId()}">Add to Queue</a>
                       </div>
-
-                      <hr />
+                      <hr/>
+                      <div id="dropdown-list">
+                        <i class="fas fa-plus"></i>
+                        <a class="font-color add-to-playlist" href="javascript:void(0);" th:data-song-id="${Song.getId()}" th:onmouseover="loadPlaylists([[${Song.getId()}]])">Add to Playlist</a>
+                        <div th:id="'playlist-dropdown-' + ${Song.getId()}" id="playlist-dropdown-${Song.getId()}" class="playlist-dropdown hide">
+                          <!-- This will be filled by JavaScript -->
+                        </div>
+                      </div>
+                      <hr/>
                       <div id="dropdown-list">
                         <i class="fas fa-exclamation-circle"></i>
                         &nbsp;
@@ -411,16 +408,9 @@
                   </i>
                 </div>
               </div>
-
-              <br />
-              <p
-                th:text="${Song.getArtist().getArtistName()}"
-                style="color: lightgrey"
-              ></p>
             </div>
-
-            <!--End of song title-->
           </div>
+
           <!--End of song 1-->
         </div>
         <!--End of songs list div-->
@@ -888,6 +878,27 @@
           }
         });
       });
+
+        function loadPlaylists(songId) {
+          const dropdown = document.getElementById(`playlist-dropdown-${songId}`);
+          if (dropdown.classList.contains('hide')) {
+            dropdown.classList.remove('hide');
+
+            fetch('/playlists-rest')
+                    .then(response => response.json())
+                    .then(data => {
+
+                      let playlistHtml = '';
+                      data.forEach(playlist => {
+                        playlistHtml += `<div class="playlist-item" style="padding: 10px; background-color: white">
+                                          <a href="/playlists/add/${playlist.id}/add-song/${songId}">${playlist.name}</a>
+                                       </div>`;
+                      });
+                      dropdown.innerHTML = playlistHtml;
+                    })
+                    .catch(error => console.error('Error loading playlists:', error));
+          }
+        }
     </script>
 
     <!--End of footer section-->

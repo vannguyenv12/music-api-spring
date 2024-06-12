@@ -5,20 +5,22 @@ import com.play.music.artist.ArtistService;
 import com.play.music.genre.GenreService;
 import com.play.music.models.*;
 import com.play.music.playlist.PlaylistService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 @Controller
 public class SongController {
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private final SongService songService;
     private final AlbumService albumService;
@@ -36,7 +38,7 @@ public class SongController {
     }
 
     @RequestMapping("/")
-    public String getHomepage(Model model){
+    public String getHomepage(Model model, HttpSession session){
         List<Song> TempListSong = songService.getAllSongs();
         List<Album> TempListAlbum = albumService.findAll();
         List<Artist> TempListArtist = artistService.findAll();
@@ -77,7 +79,94 @@ public class SongController {
         model.addAttribute("ListHotAlbum", ListHotAlbum);
         model.addAttribute("ListHotSong", ListHotSong);
 
+        System.out.println("check session: " + session.getAttribute("username"));
+
         return "index";
+    }
+
+    @RequestMapping("/login")
+    public String getLoginPage() {
+        return "login";
+    }
+
+    @GetMapping("/signup")
+    public String getSignUpPage() {
+        return "signup";
+    }
+
+    @PostMapping("/loginAction")
+    @Transactional
+    public ModelAndView loginAction(@RequestParam String email, @RequestParam String password, HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        User user = entityManager.createQuery(
+                        "SELECT u FROM User u WHERE u.email = :email", User.class)
+                .setParameter("email", email)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+
+        if (user != null) {
+            String hashedInputPassword = HashPassword.hash(password);
+            if (hashedInputPassword.equals(user.getPassword())) {
+                String username = user.getUsername();
+                session.setAttribute("username", username);
+
+                session.setAttribute("role", user.getRole());
+
+
+                if("admin".equals(user.getRole())) {
+                    modelAndView.setViewName("redirect:/admin"); // Redirect to admin page if role is "admin"
+                } else {
+                    modelAndView.setViewName("redirect:/"); // Redirect to home page for other roles
+                }
+                return modelAndView;
+            }
+        }
+        modelAndView.addObject("session", session);
+        modelAndView.setViewName("/login");
+        return modelAndView;
+    }
+
+    @PostMapping("/signupAction")
+    @Transactional
+    public ModelAndView signUpAction(@RequestParam String email, @RequestParam String password, @RequestParam String name) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        // Kiểm tra người dùng đã tồn tại chưa
+        User existingUser = entityManager.createQuery(
+                        "SELECT u FROM User u WHERE u.email = :email", User.class)
+                .setParameter("email", email)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+
+        if (existingUser != null) {
+            // Người dùng đã tồn tại, trả về trang đăng ký với thông báo
+            modelAndView.addObject("message", "Email này đã được sử dụng!");
+            modelAndView.setViewName("signup");
+            return modelAndView;
+        }
+
+        // Mã hóa mật khẩu
+        String hashedPassword = HashPassword.hash(password);
+        // Tạo người dùng mới
+        User newUser = new User();
+        newUser.setUsername(name);
+        newUser.setEmail(email);
+        newUser.setPassword(hashedPassword);
+
+        // Lưu người dùng mới vào cơ sở dữ liệu
+        entityManager.persist(newUser);
+        entityManager.flush();
+        // Đăng ký thành công, chuyển hướng người dùng đến trang đăng nhập
+        modelAndView.setViewName("redirect:/login");
+        return modelAndView;
+    };
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 //    @GetMapping("/playSong/{id}")
 //    @ResponseBody

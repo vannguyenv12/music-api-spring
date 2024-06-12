@@ -1,7 +1,5 @@
 package com.play.music.song;
 
-import com.cloudinary.Cloudinary;
-import com.play.music.cloudinary.Upload;
 import com.play.music.models.Album;
 import com.play.music.models.Artist;
 import com.play.music.models.Genre;
@@ -31,7 +29,6 @@ public class AdminSongController {
     private final AlbumRepository albumRepository;
     private final GenreRepository genreRepository;
     private final ArtistRepository artistRepository;
-    private final Upload cloudinary;
 
     @RequestMapping("/admin")
     public String getHomepage(){
