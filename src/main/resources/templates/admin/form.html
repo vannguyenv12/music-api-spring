@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layouts/header :: head"></head>
+
+<body>
+<div id="app">
+    <div class="main-wrapper">
+
+        <div th:replace="admin/layouts/header :: navbar"></div>
+        <div th:replace="admin/layouts/sidebar :: sidebar"></div>
+
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header justify-content-between">
+                    <h1>Add Song</h1>
+                    <div class="ml-auto">
+                        <a href="" class="btn btn-primary"><i class="fas fa-plus"></i> Button</a>
+                    </div>
+                </div>
+                <div class="section-body">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                        <form action="#" th:action="@{/save-song}" method="post" enctype="multipart/form-data" th:object="${song}">
+
+                                            <input th:if="${id != null}" type="hidden" th:field="*{id}" />
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group mb-3">
+                                                    <label>Title</label>
+                                                    <input type="text" class="form-control" name="" th:field="*{title}" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label>Albums</label>
+                                            <select class="form-control" th:field="*{album}" required>
+                                                <option value=""></option>
+                                               <th:block th:each="album : ${albums}">
+                                                   <option th:value="${album.id}" th:text="${album.name}"></option>
+                                               </th:block>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label>Artist</label>
+                                            <select class="form-control" th:field="*{artist}" required>
+                                                <option value=""></option>
+                                                <th:block th:each="artist : ${artists}">
+                                                    <option th:value="${artist.id}" th:text="${artist.artistName}"></option>
+                                                </th:block>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label>Genre</label>
+                                            <select class="form-control" th:field="*{genre}" required>
+                                                <option value=""></option>
+                                                <th:block th:each="genre : ${genres}">
+                                                    <option th:value="${genre.name}" th:text="${genre.name}"></option>
+                                                </th:block>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label>Song</label>
+                                            <div>
+                                                <input type="file" name="file" required >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script src="dist/js/scripts.js"></script>
+<script src="dist/js/custom.js"></script>
+
+</body>
+</html>

@@ -20,6 +20,7 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
+    @Column(length = 512)
     private String songUrl;
 
     @ManyToOne
