@@ -3,6 +3,7 @@ package com.play.music.playlist;
 import com.play.music.models.Playlist;
 import com.play.music.models.User;
 import com.play.music.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,8 +23,8 @@ public class PlaylistController {
     private final UserRepository userRepository;
 
     @GetMapping("/playlists")
-    public String getPlaylists(Model model) {
-        List<Playlist> playlists = playlistService.findAll();
+    public String getPlaylists(Model model, HttpSession session) {
+        Set<Playlist> playlists = playlistService.findAll((String) session.getAttribute("username"));
 
         model.addAttribute("playlist", new Playlist());
         model.addAttribute("playlists", playlists);
@@ -65,10 +67,11 @@ public class PlaylistController {
 
     @PostMapping("/playlists/save")
     public String savePlaylist(Playlist playlist,
-                               @RequestHeader(value = "Referer", required = false) String referer
+                               @RequestHeader(value = "Referer", required = false) String referer,
+                               HttpSession session
                                ) {
 
-        User user = userRepository.findById(1).get();
+        User user = userRepository.findByUsername((String) session.getAttribute("username"));
         playlistService.savePlaylist(playlist, user);
 
         return "redirect:" + referer;

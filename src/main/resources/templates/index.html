@@ -6,7 +6,7 @@
 <head>
   <title>Music Player</title>
   <!--Linking the CSS stylesheet using extrenal CSS-->
-  <link rel="stylesheet" type="text/css" href="MusicPlayerStyle.css">
+  <link rel="stylesheet" type="text/css" href="/css/MusicPlayerStyle.css">
   <!--Font Awesome script for using icons from font awesome-->
   <script src="https://kit.fontawesome.com/6f0f83005a.js" crossorigin="anonymous"></script>
   <!--Adds responsiveness to the website-->
@@ -53,7 +53,12 @@
 
     <!--User Image div-->
     <div id="user">
-      <img src="Images/user-image.jpg">
+      <a href="/login">
+        <img src="images/user-image.jpg">
+      </a>
+      <a href="/logout">
+        <span style="color: white;">[[${session.username}]]</span>
+      </a>
     </div>
   </div>
   <!--User Image div end-->

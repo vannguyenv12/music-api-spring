@@ -5,21 +5,25 @@ import com.play.music.models.Song;
 import com.play.music.models.User;
 import com.play.music.repository.PlaylistRepository;
 import com.play.music.repository.SongRepository;
+import com.play.music.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
 public class PlaylistService {
     private final PlaylistRepository playlistRepository;
+    private final UserRepository userRepository;
     private final SongRepository songRepository;
 
-    public List<Playlist> findAll() {
-        return playlistRepository.findAll();
+    public Set<Playlist> findAll(String username) {
+        User user = userRepository.findByUsername(username);
+        return user.getPlaylists();
     }
 
     public Playlist find(Integer id) {
